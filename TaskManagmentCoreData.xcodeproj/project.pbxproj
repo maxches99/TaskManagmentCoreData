@@ -13,6 +13,11 @@
 		82BD640727931AD300121036 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82BD640627931AD300121036 /* Preview Assets.xcassets */; };
 		82BD640927931AD300121036 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD640827931AD300121036 /* Persistence.swift */; };
 		82BD640C27931AD300121036 /* TaskManagmentCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82BD640A27931AD300121036 /* TaskManagmentCoreData.xcdatamodeld */; };
+		82BD641427931C2700121036 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD641327931C2700121036 /* TaskViewModel.swift */; };
+		82BD6417279322B000121036 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD6416279322B000121036 /* Task.swift */; };
+		82BD641A279327B000121036 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD6419279327B000121036 /* Home.swift */; };
+		82BD641C2794EB0E00121036 /* DynamicFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD641B2794EB0E00121036 /* DynamicFilteredView.swift */; };
+		82BD641E2794F76B00121036 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD641D2794F76B00121036 /* NewTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +28,12 @@
 		82BD640627931AD300121036 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		82BD640827931AD300121036 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		82BD640B27931AD300121036 /* TaskManagmentCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskManagmentCoreData.xcdatamodel; sourceTree = "<group>"; };
+		82BD641327931C2700121036 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		82BD6416279322B000121036 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		82BD6419279327B000121036 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		82BD641B2794EB0E00121036 /* DynamicFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFilteredView.swift; sourceTree = "<group>"; };
+		82BD641D2794F76B00121036 /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
+		82BD641F27950F2C00121036 /* TaskManagmentCoreData.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaskManagmentCoreData.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,10 @@
 		82BD63FE27931AD200121036 /* TaskManagmentCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				82BD641F27950F2C00121036 /* TaskManagmentCoreData.entitlements */,
+				82BD6418279327A800121036 /* View */,
+				82BD6415279322A400121036 /* Entities */,
+				82BD641227931C0E00121036 /* ViewModel */,
 				82BD63FF27931AD200121036 /* TaskManagmentCoreDataApp.swift */,
 				82BD640127931AD200121036 /* ContentView.swift */,
 				82BD640327931AD300121036 /* Assets.xcassets */,
@@ -71,6 +86,32 @@
 				82BD640627931AD300121036 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		82BD641227931C0E00121036 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				82BD641327931C2700121036 /* TaskViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		82BD6415279322A400121036 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				82BD6416279322B000121036 /* Task.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		82BD6418279327A800121036 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				82BD6419279327B000121036 /* Home.swift */,
+				82BD641D2794F76B00121036 /* NewTask.swift */,
+				82BD641B2794EB0E00121036 /* DynamicFilteredView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,7 +187,12 @@
 				82BD640C27931AD300121036 /* TaskManagmentCoreData.xcdatamodeld in Sources */,
 				82BD640927931AD300121036 /* Persistence.swift in Sources */,
 				82BD640227931AD200121036 /* ContentView.swift in Sources */,
+				82BD641E2794F76B00121036 /* NewTask.swift in Sources */,
+				82BD641C2794EB0E00121036 /* DynamicFilteredView.swift in Sources */,
+				82BD641427931C2700121036 /* TaskViewModel.swift in Sources */,
+				82BD6417279322B000121036 /* Task.swift in Sources */,
 				82BD640027931AD200121036 /* TaskManagmentCoreDataApp.swift in Sources */,
+				82BD641A279327B000121036 /* Home.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +320,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TaskManagmentCoreData/TaskManagmentCoreData.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TaskManagmentCoreData/Preview Content\"";
@@ -292,6 +339,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = chesnikov.TaskManagmentCoreData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -303,6 +351,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TaskManagmentCoreData/TaskManagmentCoreData.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TaskManagmentCoreData/Preview Content\"";
@@ -321,6 +370,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = chesnikov.TaskManagmentCoreData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
