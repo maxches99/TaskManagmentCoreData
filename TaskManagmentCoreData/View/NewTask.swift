@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct NewTask: View {
+    
+    let notificationCenter = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .sound, .badge]
     
     @Namespace var animation
     
@@ -77,6 +81,7 @@ struct NewTask: View {
     @State var taskDescription: String = ""
     @State var taskData: Date = Date()
     @State var taskPriority: Int = 0
+    @State var id = UUID()
     
     @State var taskRepeatDay: Int = 0
     @State var endOfRepeat: TypeEndOfRepeat = .endless
@@ -300,6 +305,8 @@ struct NewTask: View {
                             break
                         }
                         
+                        
+                        
                         dismiss()
                     }
                     .disabled(taskTitle.isEmpty)
@@ -315,6 +322,35 @@ struct NewTask: View {
         }
         .onAppear {
             isEditing = !taskTitle.isEmpty
+            
+            notificationCenter.requestAuthorization(options: options) {
+                (didAllow, error) in
+                if !didAllow {
+                    print("User has declined notifications")
+                }
+            }
+        }
+    }
+    
+    func scheduleNotification(_ date: Date) {
+        
+        let content = UNMutableNotificationContent() // Содержимое уведомления
+        
+        content.title = taskTitle
+        content.body = taskDescription
+        content.sound = UNNotificationSound.default
+        content.badge = 1
+        
+        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        
+        let identifier = "chesnikov.taskmanager.local"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
         }
     }
     
@@ -322,9 +358,14 @@ struct NewTask: View {
         let task = Task(context: context)
         task.taskTitle = taskTitle
         task.taskDescription = taskDescription
-        task.taskDate = date
-        task.priority = Int16(taskPriority)
-        task.id = UUID()
+        if !isEditing {
+            task.taskDate = date
+            task.priority = Int16(taskPriority)
+            task.id = task.id ?? id
+        }
+        
+        scheduleNotification(date)
+        
         try? context.save()
     }
 }
