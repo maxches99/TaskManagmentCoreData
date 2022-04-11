@@ -358,9 +358,9 @@ struct NewTask: View {
         let task = Task(context: context)
         task.taskTitle = taskTitle
         task.taskDescription = taskDescription
+        task.priority = Int16(taskPriority)
         if !isEditing {
             task.taskDate = date
-            task.priority = Int16(taskPriority)
             task.id = task.id ?? id
         }
         
