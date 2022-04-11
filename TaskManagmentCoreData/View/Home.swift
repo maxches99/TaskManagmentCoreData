@@ -145,6 +145,11 @@ struct Home: View {
                                 .padding(-3)
                         )
                         .scaleEffect(!taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0.8 : 1)
+                        .onTapGesture {
+                            task.isCompleted = false
+                            
+                            try? context.save()
+                        }
                     switch task.priority {
                     case 1:
                         Rectangle()
