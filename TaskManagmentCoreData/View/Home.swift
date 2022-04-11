@@ -85,8 +85,12 @@ struct Home: View {
         .sheet(isPresented: $taskModel.addNewTask) {
             taskModel.editTask = nil
         } content: {
-            NewTask()
-                .environmentObject(taskModel)
+            if let taskDataModel = taskModel.editTask {
+                NewTask(taskTitle: taskDataModel.taskTitle ?? "", taskDescription: taskDataModel.taskDescription ?? "", taskPriority: Int(taskDataModel.priority ?? 0))
+            } else {
+                NewTask(taskData: taskModel.currentDay)
+                    .environmentObject(taskModel)
+            }
         }
     }
     
@@ -141,9 +145,20 @@ struct Home: View {
                                 .padding(-3)
                         )
                         .scaleEffect(!taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0.8 : 1)
-                    Rectangle()
-                        .fill(Color(uiColor: .label))
-                        .frame(width: 3)
+                    switch task.priority {
+                    case 1:
+                        Rectangle()
+                            .fill(Color(uiColor: .orange))
+                            .frame(width: 3)
+                    case 2:
+                        Rectangle()
+                            .fill(Color(uiColor: .red))
+                            .frame(width: 3)
+                    default:
+                        Rectangle()
+                            .fill(Color(uiColor: .label))
+                            .frame(width: 3)
+                    }
                 }
             }
             
@@ -180,7 +195,7 @@ struct Home: View {
                             }
                         }
                         
-                        Text(task.isCompleted ? "Marked as Completed" : "Mark Task as Completed")
+                        Text(task.isCompleted ? "Marked as Completed".localizationString : "Mark Task as Completed".localizationString)
                             .font(.system(size: 16, weight: .light))
                             .foregroundColor(!task.isCompleted ? Color(uiColor: .label) : .gray)
                             .hLeading()
@@ -206,10 +221,13 @@ struct Home: View {
                 Text(Date().formatted(date: .abbreviated, time: .omitted))
                     .foregroundColor(.gray)
                     .animation(.easeInOut, value: 2.4)
-                    .padding(.leading)
-                Text("Today")
+                Text("Today".localizationString)
                     .font(.largeTitle.bold())
                     .animation(.easeInOut, value: 2.4)
+                    .onTapGesture {
+                        taskModel.currentDay = Date()
+                    }
+                    .padding(.leading)
                 
             }
             .hLeading()
@@ -230,8 +248,13 @@ struct Home: View {
 }
 
 struct Home_Previews: PreviewProvider {
+    
+    static var persistenceController = PersistenceController.preview
+    
     static var previews: some View {
+        
         Home()
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         Home()
             .preferredColorScheme(.dark)
     }

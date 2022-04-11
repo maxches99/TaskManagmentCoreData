@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  TaskManagmentCoreData
+
+  Created by Максим Чесников on 10.04.2022.
+  
+*/
+"Go to work" = "Go to work";
+"Title" = "Title";
+"Nothing" = "Nothing";
+"Description" = "Description";
+"Priority" = "Priority";
+"High" = "High";
+"Medium" = "Medium";
+"Down" = "Down";
+"Date" = "Date";
+"Add New Task" = "Add New Task";
+"Save" = "Save";
+"Cancel" = "Cancel";
+"Marked as Completed" = "Marked as Completed";
+"Mark Task as Completed" = "Mark Task as Completed";
+"No tasks" = "No tasks";
+"Today" = "Today";
+"Повтор" = "Repeat";
+"Никогда" = "Never";
+"Ежедневно" = "Everyday";
+"По будням" = "By workdays";
+"По выходным" = "By weekends";
+"Еженедельно" = "Everyweek";
+"Каждые 2 недели" = "Every 2 weeks";
+"Ежемесячно" = "Everymonth";
+"Каждые 3 месяца" = "Every 3 months";
+"Каждые 6 месяцев" = "Every 6 months";
+"Ежегодно" = "Everyyear";
+"В течении 7 дней" = "Within 7 days";
+"Дата окончания" = "End date of the repeat";
+"Конец повтора" = "End of the repeat";

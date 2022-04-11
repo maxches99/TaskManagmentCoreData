@@ -32,7 +32,7 @@ struct DynamicFilteredView<Content: View, T>: View where T: NSManagedObject {
         Group {
             if request.isEmpty {
                 
-                Text("No tasks")
+                Text("No tasks".localizationString)
                     .font(.system(size: 16))
                     .fontWeight(.light)
                     .offset(y: 100)
