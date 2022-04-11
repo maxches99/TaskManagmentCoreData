@@ -324,6 +324,7 @@ struct NewTask: View {
         task.taskDescription = taskDescription
         task.taskDate = date
         task.priority = Int16(taskPriority)
+        task.id = UUID()
         try? context.save()
     }
 }
