@@ -142,7 +142,7 @@ struct Home: View {
             } else {
                 VStack(spacing: 10) {
                     Circle()
-                        .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? .green : Color(uiColor: .systemBackground)) : .clear)
+                        .fill(task.isCompleted ? .green : Color(uiColor: .systemBackground))
                         .frame(width: 15, height: 15)
                         .background(
                             Circle()
