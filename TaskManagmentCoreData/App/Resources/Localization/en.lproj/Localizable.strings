@@ -35,3 +35,14 @@
 "В течении 7 дней" = "Within 7 days";
 "Дата окончания" = "End date of the repeat";
 "Конец повтора" = "End of the repeat";
+"Welcome to Расписание" = "Welcome to Schedule";
+"Создавай задачи на каждый день!" = "Create tasks for every day!";
+"Просто откройте приложение и начните создавать задачи. Никаких выборов и сложных манипуляций от вас не требуется. Просто открой и создай!" = "Just open the app and start creating tasks. No choices and complex manipulations are required from you. Just open and create!";
+"Приоритеты" = "Priority";
+"Поставьте задачам приоритеты и вам будет удобно выбирать в каком порядке их выполнять." = "Prioritize tasks and you'll be able to choose the order in which you want to complete them.";
+"Автоповтор" = "Autorepeat";
+"Поставьте задачи на автоповтор и создайте удобное расписание на дни вперед!" = "Set tasks to auto-repeat and create a convenient schedule for the days ahead!";
+"Уведомления" = "Notification";
+"Наши уведомления помогут вам вовремя выполнять поставленные цели!" = "Our notifications will help you meet your goals on time!";
+"Мы не отправляем ваши данные. Все ваши задачи хранятся на устройстве!" = "We don't send your data. All your tasks are stored on the device!";
+"Далее" = "Next";

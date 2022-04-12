@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4908C9912805CDBE008BAE55 /* TaskRepeatDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9902805CDBE008BAE55 /* TaskRepeatDay.swift */; };
+		4908C9932805CDDD008BAE55 /* TypeEndOfRepeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9922805CDDD008BAE55 /* TypeEndOfRepeat.swift */; };
+		4908C9962805CE4E008BAE55 /* Date+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9952805CE4E008BAE55 /* Date+Calendar.swift */; };
+		4908C9982805CEA7008BAE55 /* NewTask+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9972805CEA7008BAE55 /* NewTask+Logic.swift */; };
+		4908C99A2805CEE3008BAE55 /* NewTask+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9992805CEE3008BAE55 /* NewTask+UI.swift */; };
+		4908C99E28060616008BAE55 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C99D28060616008BAE55 /* View.swift */; };
+		4908C9A028060AAA008BAE55 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C99F28060AAA008BAE55 /* TutorialView.swift */; };
+		4908C9A328060C79008BAE55 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 4908C9A228060C79008BAE55 /* UIOnboarding */; };
 		499E55FF2803781700593E23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 499E56012803781700593E23 /* Localizable.strings */; };
 		499E56072803785A00593E23 /* String+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E56062803785A00593E23 /* String+Localize.swift */; };
 		82BD640027931AD200121036 /* TaskManagmentCoreDataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD63FF27931AD200121036 /* TaskManagmentCoreDataApp.swift */; };
@@ -22,7 +30,27 @@
 		82BD641E2794F76B00121036 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD641D2794F76B00121036 /* NewTask.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4908C98C2804AF7D008BAE55 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4908C9902805CDBE008BAE55 /* TaskRepeatDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepeatDay.swift; sourceTree = "<group>"; };
+		4908C9922805CDDD008BAE55 /* TypeEndOfRepeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeEndOfRepeat.swift; sourceTree = "<group>"; };
+		4908C9952805CE4E008BAE55 /* Date+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Calendar.swift"; sourceTree = "<group>"; };
+		4908C9972805CEA7008BAE55 /* NewTask+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewTask+Logic.swift"; sourceTree = "<group>"; };
+		4908C9992805CEE3008BAE55 /* NewTask+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewTask+UI.swift"; sourceTree = "<group>"; };
+		4908C99D28060616008BAE55 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		4908C99F28060AAA008BAE55 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		499E56002803781700593E23 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		499E56022803781900593E23 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		499E56062803785A00593E23 /* String+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localize.swift"; sourceTree = "<group>"; };
@@ -46,12 +74,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4908C9A328060C79008BAE55 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4908C9942805CE40008BAE55 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4908C9952805CE4E008BAE55 /* Date+Calendar.swift */,
+				4908C99D28060616008BAE55 /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		499E56032803782F00593E23 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +134,7 @@
 		82BD63FE27931AD200121036 /* TaskManagmentCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				4908C9942805CE40008BAE55 /* Extensions */,
 				499E56032803782F00593E23 /* App */,
 				82BD641F27950F2C00121036 /* TaskManagmentCoreData.entitlements */,
 				82BD6418279327A800121036 /* View */,
@@ -131,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				82BD6416279322B000121036 /* Task.swift */,
+				4908C9902805CDBE008BAE55 /* TaskRepeatDay.swift */,
+				4908C9922805CDDD008BAE55 /* TypeEndOfRepeat.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -140,7 +181,10 @@
 			children = (
 				82BD6419279327B000121036 /* Home.swift */,
 				82BD641D2794F76B00121036 /* NewTask.swift */,
+				4908C9992805CEE3008BAE55 /* NewTask+UI.swift */,
+				4908C9972805CEA7008BAE55 /* NewTask+Logic.swift */,
 				82BD641B2794EB0E00121036 /* DynamicFilteredView.swift */,
+				4908C99F28060AAA008BAE55 /* TutorialView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,12 +199,16 @@
 				82BD63F827931AD200121036 /* Sources */,
 				82BD63F927931AD200121036 /* Frameworks */,
 				82BD63FA27931AD200121036 /* Resources */,
+				4908C98C2804AF7D008BAE55 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TaskManagmentCoreData;
+			packageProductDependencies = (
+				4908C9A228060C79008BAE55 /* UIOnboarding */,
+			);
 			productName = TaskManagmentCoreData;
 			productReference = 82BD63FC27931AD200121036 /* TaskManagmentCoreData.app */;
 			productType = "com.apple.product-type.application";
@@ -189,6 +237,9 @@
 				ru,
 			);
 			mainGroup = 82BD63F327931AD200121036;
+			packageReferences = (
+				4908C9A128060C79008BAE55 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+			);
 			productRefGroup = 82BD63FD27931AD200121036 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -220,12 +271,19 @@
 				499E56072803785A00593E23 /* String+Localize.swift in Sources */,
 				82BD640927931AD300121036 /* Persistence.swift in Sources */,
 				82BD640227931AD200121036 /* ContentView.swift in Sources */,
+				4908C99E28060616008BAE55 /* View.swift in Sources */,
+				4908C9912805CDBE008BAE55 /* TaskRepeatDay.swift in Sources */,
 				82BD641E2794F76B00121036 /* NewTask.swift in Sources */,
 				82BD641C2794EB0E00121036 /* DynamicFilteredView.swift in Sources */,
 				82BD641427931C2700121036 /* TaskViewModel.swift in Sources */,
+				4908C9A028060AAA008BAE55 /* TutorialView.swift in Sources */,
+				4908C99A2805CEE3008BAE55 /* NewTask+UI.swift in Sources */,
+				4908C9982805CEA7008BAE55 /* NewTask+Logic.swift in Sources */,
 				82BD6417279322B000121036 /* Task.swift in Sources */,
 				82BD640027931AD200121036 /* TaskManagmentCoreDataApp.swift in Sources */,
+				4908C9962805CE4E008BAE55 /* Date+Calendar.swift in Sources */,
 				82BD641A279327B000121036 /* Home.swift in Sources */,
+				4908C9932805CDDD008BAE55 /* TypeEndOfRepeat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +504,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4908C9A128060C79008BAE55 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4908C9A228060C79008BAE55 /* UIOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4908C9A128060C79008BAE55 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			productName = UIOnboarding;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		82BD640A27931AD300121036 /* TaskManagmentCoreData.xcdatamodeld */ = {

@@ -19,7 +19,14 @@ class TaskViewModel: ObservableObject {
     
     @Published var editTask: Task?
     
+    @Published var showingOnboarding: Bool = false
+    
     init() {
+        
+        if !UserDefaults.standard.bool(forKey: "isOpened") {
+            UserDefaults.standard.set(true, forKey: "isOpened")
+            showingOnboarding = true
+        }
         fetchCurrentWeek()
     }
     

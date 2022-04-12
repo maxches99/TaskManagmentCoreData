@@ -61,6 +61,7 @@ struct Home: View {
                     }
                     
                     TasksView()
+                        .animation(.easeInOut(duration: 0.5))
                     
                 } header: {
                     HeaderView()
@@ -92,6 +93,10 @@ struct Home: View {
                     .environmentObject(taskModel)
             }
         }
+        .fullScreenCover(isPresented: $taskModel.showingOnboarding, content: {
+            UIOnboardingView()
+                .edgesIgnoringSafeArea(.all)
+        })
     }
     
     func TasksView()->some View {
@@ -154,15 +159,18 @@ struct Home: View {
                     case 1:
                         Rectangle()
                             .fill(Color(uiColor: .orange))
-                            .frame(width: 3)
+                            .frame(width: 4)
+                            .cornerRadius(2)
                     case 2:
                         Rectangle()
                             .fill(Color(uiColor: .red))
-                            .frame(width: 3)
+                            .frame(width: 4)
+                            .cornerRadius(2)
                     default:
                         Rectangle()
                             .fill(Color(uiColor: .label))
-                            .frame(width: 3)
+                            .frame(width: 4)
+                            .cornerRadius(2)
                     }
                 }
             }
@@ -184,27 +192,25 @@ struct Home: View {
                 }
                 .foregroundColor(Color(uiColor: .label))
                 
-                if taskModel.isCurrentHour(date: task.taskDate ?? Date()) {
-                    HStack(spacing: 12) {
-                        
-                        if !task.isCompleted {
-                            Button {
-                                task.isCompleted = true
-                                
-                                try? context.save()
-                            } label: {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color(uiColor: .systemBackground))
-                                    .padding(10)
-                                    .background(Color(uiColor: .label), in: RoundedRectangle(cornerRadius: 10))
-                            }
+                HStack(spacing: 12) {
+                    
+                    if !task.isCompleted {
+                        Button {
+                            task.isCompleted = true
+                            
+                            try? context.save()
+                        } label: {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(Color(uiColor: .systemBackground))
+                                .padding(10)
+                                .background(Color(uiColor: .label), in: RoundedRectangle(cornerRadius: 10))
                         }
-                        
-                        Text(task.isCompleted ? "Marked as Completed".localizationString : "Mark Task as Completed".localizationString)
-                            .font(.system(size: 16, weight: .light))
-                            .foregroundColor(!task.isCompleted ? Color(uiColor: .label) : .gray)
-                            .hLeading()
                     }
+                    
+                    Text(task.isCompleted ? "Marked as Completed".localizationString : "Mark Task as Completed".localizationString)
+                        .font(.system(size: 16, weight: .light))
+                        .foregroundColor(!task.isCompleted ? Color(uiColor: .label) : .gray)
+                        .hLeading()
                 }
             }
             .foregroundColor(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? Color(uiColor: .label) : Color(uiColor: .systemBackground))
@@ -261,33 +267,7 @@ struct Home_Previews: PreviewProvider {
         Home()
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
         Home()
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .preferredColorScheme(.dark)
-    }
-}
-
-
-extension View {
-    
-    func hLeading() -> some View {
-        self
-            .frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
-    func hTrailing() -> some View {
-        self
-            .frame(maxWidth: .infinity, alignment: .trailing)
-    }
-    
-    func hCenter() -> some View {
-        self
-            .frame(maxWidth: .infinity, alignment: .center)
-    }
-    
-    func getSafeArea() -> UIEdgeInsets {
-        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return .zero }
-        
-        guard let safeArea = screen.windows.first?.safeAreaInsets else { return .zero }
-        
-        return safeArea
     }
 }
