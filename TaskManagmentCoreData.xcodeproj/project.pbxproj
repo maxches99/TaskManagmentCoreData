@@ -15,10 +15,10 @@
 		4908C99E28060616008BAE55 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C99D28060616008BAE55 /* View.swift */; };
 		4908C9A028060AAA008BAE55 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C99F28060AAA008BAE55 /* TutorialView.swift */; };
 		4908C9A328060C79008BAE55 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 4908C9A228060C79008BAE55 /* UIOnboarding */; };
+		4908C9A52807607A008BAE55 /* TypeOfNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9A42807607A008BAE55 /* TypeOfNotification.swift */; };
 		499E55FF2803781700593E23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 499E56012803781700593E23 /* Localizable.strings */; };
 		499E56072803785A00593E23 /* String+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E56062803785A00593E23 /* String+Localize.swift */; };
 		82BD640027931AD200121036 /* TaskManagmentCoreDataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD63FF27931AD200121036 /* TaskManagmentCoreDataApp.swift */; };
-		82BD640227931AD200121036 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD640127931AD200121036 /* ContentView.swift */; };
 		82BD640427931AD300121036 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82BD640327931AD300121036 /* Assets.xcassets */; };
 		82BD640727931AD300121036 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82BD640627931AD300121036 /* Preview Assets.xcassets */; };
 		82BD640927931AD300121036 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD640827931AD300121036 /* Persistence.swift */; };
@@ -51,12 +51,12 @@
 		4908C9992805CEE3008BAE55 /* NewTask+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewTask+UI.swift"; sourceTree = "<group>"; };
 		4908C99D28060616008BAE55 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		4908C99F28060AAA008BAE55 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		4908C9A42807607A008BAE55 /* TypeOfNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfNotification.swift; sourceTree = "<group>"; };
 		499E56002803781700593E23 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		499E56022803781900593E23 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		499E56062803785A00593E23 /* String+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localize.swift"; sourceTree = "<group>"; };
 		82BD63FC27931AD200121036 /* TaskManagmentCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManagmentCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82BD63FF27931AD200121036 /* TaskManagmentCoreDataApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagmentCoreDataApp.swift; sourceTree = "<group>"; };
-		82BD640127931AD200121036 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		82BD640327931AD300121036 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82BD640627931AD300121036 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		82BD640827931AD300121036 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -141,7 +141,6 @@
 				82BD6415279322A400121036 /* Entities */,
 				82BD641227931C0E00121036 /* ViewModel */,
 				82BD63FF27931AD200121036 /* TaskManagmentCoreDataApp.swift */,
-				82BD640127931AD200121036 /* ContentView.swift */,
 				82BD640327931AD300121036 /* Assets.xcassets */,
 				82BD640827931AD300121036 /* Persistence.swift */,
 				82BD640A27931AD300121036 /* TaskManagmentCoreData.xcdatamodeld */,
@@ -172,6 +171,7 @@
 				82BD6416279322B000121036 /* Task.swift */,
 				4908C9902805CDBE008BAE55 /* TaskRepeatDay.swift */,
 				4908C9922805CDDD008BAE55 /* TypeEndOfRepeat.swift */,
+				4908C9A42807607A008BAE55 /* TypeOfNotification.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -270,7 +270,6 @@
 				82BD640C27931AD300121036 /* TaskManagmentCoreData.xcdatamodeld in Sources */,
 				499E56072803785A00593E23 /* String+Localize.swift in Sources */,
 				82BD640927931AD300121036 /* Persistence.swift in Sources */,
-				82BD640227931AD200121036 /* ContentView.swift in Sources */,
 				4908C99E28060616008BAE55 /* View.swift in Sources */,
 				4908C9912805CDBE008BAE55 /* TaskRepeatDay.swift in Sources */,
 				82BD641E2794F76B00121036 /* NewTask.swift in Sources */,
@@ -278,6 +277,7 @@
 				82BD641427931C2700121036 /* TaskViewModel.swift in Sources */,
 				4908C9A028060AAA008BAE55 /* TutorialView.swift in Sources */,
 				4908C99A2805CEE3008BAE55 /* NewTask+UI.swift in Sources */,
+				4908C9A52807607A008BAE55 /* TypeOfNotification.swift in Sources */,
 				4908C9982805CEA7008BAE55 /* NewTask+Logic.swift in Sources */,
 				82BD6417279322B000121036 /* Task.swift in Sources */,
 				82BD640027931AD200121036 /* TaskManagmentCoreDataApp.swift in Sources */,
@@ -431,11 +431,13 @@
 				DEVELOPMENT_TEAM = 274RF4F6D5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,10 +445,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = chesnikov.TaskManagmentCoreData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -463,11 +465,13 @@
 				DEVELOPMENT_TEAM = 274RF4F6D5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,10 +479,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = chesnikov.TaskManagmentCoreData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

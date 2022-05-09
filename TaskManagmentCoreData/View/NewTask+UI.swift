@@ -17,6 +17,7 @@ extension NewTask {
             })
             .focused($focusedField, equals: .title)
             .submitLabel(.next)
+            .padding(.vertical)
         } header: {
             Text("Title".localizationString)
         }
@@ -27,6 +28,7 @@ extension NewTask {
             TextField("Nothing".localizationString, text: $taskDescription)
                 .focused($focusedField, equals: .description)
                 .submitLabel(.next)
+                .padding(.vertical)
         } header: {
             Text("Description".localizationString)
         }
@@ -40,6 +42,7 @@ extension NewTask {
                 Text("Down".localizationString).tag(0)
                     .navigationTitle("Priority".localizationString)
             }
+            .padding(.vertical)
         }
     }
     
@@ -54,6 +57,7 @@ extension NewTask {
                 
             }
         }
+        .padding(.vertical)
     }
     
     var RepeatView: some View {
@@ -111,6 +115,67 @@ extension NewTask {
                     }
                     
                 }
+            }
+        }
+    }
+    
+    var NotificationView: some View {
+        HStack {
+            NavigationLink(destination: {
+                NavigationView {
+                    List {
+                        Section {
+                            ForEach(0...1, id: \.self) { i in
+                                Button {
+                                    endOfRepeat = TypeEndOfRepeat(rawValue: i) ?? .endless
+                                } label: {
+                                    HStack {
+                                        Text(TypeEndOfRepeat(rawValue: i)?.title ?? "")
+                                            .foregroundColor(Color(uiColor: .label))
+                                        Spacer()
+                                        if TypeEndOfRepeat(rawValue: i) == endOfRepeat {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.blue)
+                                                .animation(.linear)
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            switch endOfRepeat {
+                            case .date:
+                                DatePicker("", selection: $endOfRepeatData, in: taskData...)
+                                    .datePickerStyle(.graphical)
+                                    .labelsHidden()
+                                    .transition(.move(edge: .top))
+                                    .animation(.easeInOut(duration: 1))
+                            default:
+                                EmptyView()
+                            }
+                        }
+                    }
+                    
+                }
+                .navigationTitle("Notification".localizationString)
+                .navigationBarTitleDisplayMode(.inline)
+                .interactiveDismissDisabled()
+            }
+            ) {
+                HStack {
+                    Image(systemName: "bell.badge.fill")
+                    Text("Notification".localizationString)
+                    Spacer()
+                    switch endOfRepeat {
+                    case .endless:
+                        Text(endOfRepeat.title)
+                            .foregroundColor(.gray)
+                    case .date:
+                        Text("\(endOfRepeatData.formatted(date: .numeric, time: .omitted))")
+                            .foregroundColor(.gray)
+                    }
+                    
+                }
+                .padding(.vertical)
             }
         }
     }

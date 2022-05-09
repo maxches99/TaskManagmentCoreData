@@ -62,7 +62,7 @@ struct UIOnboardingView: UIViewControllerRepresentable {
 extension UIOnboardingViewConfiguration {
     //UIOnboardingViewController init
     static func setUp() -> UIOnboardingViewConfiguration {
-        return .init(appIcon: Bundle.main.appIcon ?? .init(named: "onboarding-icon")!,
+        return .init(appIcon: Bundle.main.appIcon ?? .init(named: "Icon")!,
                      welcomeTitle: NSMutableAttributedString(string: "Welcome to Расписание".localizationString),
                      features: [
                         .init(icon: UIImage(systemName: "doc.text.fill")!, title: "Создавай задачи на каждый день!".localizationString, description: "Просто откройте приложение и начните создавать задачи. Никаких выборов и сложных манипуляций от вас не требуется. Просто открой и создай!".localizationString),

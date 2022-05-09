@@ -48,6 +48,8 @@ struct NewTask: View {
                 
                 Priority
                 
+//                NotificationView
+                
                 if !isEditing {
                     Section {
                         RepeatMain

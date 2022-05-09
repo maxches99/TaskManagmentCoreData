@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import CoreData
 
 class TaskViewModel: ObservableObject {
     
     @Published var currentWeek: [Date] = []
     
     @Published var currentDay: Date = Date()
+
     
     @Published var filteredTasks: [Task]?
     
@@ -21,13 +23,33 @@ class TaskViewModel: ObservableObject {
     
     @Published var showingOnboarding: Bool = false
     
+    @Published var tasks: [Task] = []
+    
+    var context: NSManagedObjectContext
+    
     init() {
+        
+        self.context = PersistenceController.shared.container.viewContext
         
         if !UserDefaults.standard.bool(forKey: "isOpened") {
             UserDefaults.standard.set(true, forKey: "isOpened")
             showingOnboarding = true
         }
         fetchCurrentWeek()
+        
+//        let employeesFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+//        do {
+//            let fetchedEmployees = try context.fetch(employeesFetch) as! [Task]
+//            tasks = fetchedEmployees
+//            fetchedEmployees.forEach {
+//                if $0.fromCalendar {
+//                    context.delete($0)
+//                }
+//            }
+//        } catch {
+//            fatalError("Failed to fetch employees: \(error)")
+//        }
+        
     }
     
     func fetchCurrentWeek() {

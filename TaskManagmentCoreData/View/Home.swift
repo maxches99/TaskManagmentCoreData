@@ -63,6 +63,7 @@ struct Home: View {
                     TasksView()
                         .animation(.easeInOut(duration: 0.5))
                     
+                    
                 } header: {
                     HeaderView()
                 }
@@ -256,6 +257,7 @@ struct Home: View {
         .padding(.top, getSafeArea().top)
         .background(Color(uiColor: .systemBackground))
     }
+    
 }
 
 struct Home_Previews: PreviewProvider {
