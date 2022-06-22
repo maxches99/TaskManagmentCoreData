@@ -1,0 +1,26 @@
+{
+  "configurations" : [
+    {
+      "id" : "FF51E1BA-3B5D-4B28-A157-EDB5217D22A9",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "areLocalizationScreenshotsEnabled" : true,
+    "language" : "ru",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:TaskManagmentCoreData.xcodeproj",
+        "identifier" : "49CD1EA5282AF2C80073C4E2",
+        "name" : "TaskManagmentCoreDataTests"
+      }
+    }
+  ],
+  "version" : 1
+}

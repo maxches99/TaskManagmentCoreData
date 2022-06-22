@@ -1,0 +1,26 @@
+{
+  "configurations" : [
+    {
+      "id" : "3F592F58-7F8A-4AF1-A768-98D1A10C9AEA",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "language" : "en",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TaskManagmentCoreData.xcodeproj",
+        "identifier" : "49CD1EA5282AF2C80073C4E2",
+        "name" : "TaskManagmentCoreDataTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -22,43 +22,7 @@ struct Home: View {
             LazyVStack(spacing: 15, pinnedViews: [.sectionHeaders]) {
                 Section {
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            ForEach(taskModel.currentWeek, id: \.self) { day in
-                                VStack(spacing: 10) {
-                                    Text(taskModel.extractDate(date: day, format: "dd"))
-                                        .font(.system(size: 15))
-                                        .fontWeight(.semibold)
-                                    
-                                    Text(taskModel.extractDate(date: day, format: "EEE"))
-                                        .font(.system(size: 14))
-                                    
-                                    Circle()
-                                        .fill(Color(uiColor: .systemBackground))
-                                        .frame(width: 8, height: 8)
-                                        .opacity(taskModel.isToday(date: day) ? 1 : 0)
-                                }
-                                .foregroundColor(taskModel.isToday(date: day) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
-                                .frame(width: 45, height: 90)
-                                .background(
-                                    ZStack {
-                                        if taskModel.isToday(date: day) {
-                                            Capsule()
-                                                .fill(Color(uiColor: .label))
-                                                .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
-                                        }
-                                    }
-                                )
-                                .contentShape(Capsule())
-                                .onTapGesture {
-                                    withAnimation {
-                                        taskModel.currentDay = day
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                    }
+                    CalendarView()
                     
                     TasksView()
                         .animation(.easeInOut(duration: 0.5))
@@ -256,6 +220,46 @@ struct Home: View {
         .padding(.trailing)
         .padding(.top, getSafeArea().top)
         .background(Color(uiColor: .systemBackground))
+    }
+    
+    func CalendarView() -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 10) {
+                ForEach(taskModel.currentWeek, id: \.self) { day in
+                    VStack(spacing: 10) {
+                        Text(taskModel.extractDate(date: day, format: "dd"))
+                            .font(.system(size: 15))
+                            .fontWeight(.semibold)
+                        
+                        Text(taskModel.extractDate(date: day, format: "EEE"))
+                            .font(.system(size: 14))
+                        
+                        Circle()
+                            .fill(Color(uiColor: .systemBackground))
+                            .frame(width: 8, height: 8)
+                            .opacity(taskModel.isToday(date: day) ? 1 : 0)
+                    }
+                    .foregroundColor(taskModel.isToday(date: day) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
+                    .frame(width: 45, height: 90)
+                    .background(
+                        ZStack {
+                            if taskModel.isToday(date: day) {
+                                Capsule()
+                                    .fill(Color(uiColor: .label))
+                                    .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
+                            }
+                        }
+                    )
+                    .contentShape(Capsule())
+                    .onTapGesture {
+                        withAnimation {
+                            taskModel.currentDay = day
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
     }
     
 }

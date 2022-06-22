@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import FirebaseAnalytics
 
 extension NewTask {
     
@@ -140,6 +141,8 @@ extension NewTask {
         scheduleNotification(date)
         
         try? context.save()
+        
+        AnalyticsHelper.shared.log(.TaskSaved(task))
     }
     
 }
