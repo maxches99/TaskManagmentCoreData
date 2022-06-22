@@ -15,6 +15,7 @@
 "Down" = "Down";
 "Date" = "Date";
 "Add New Task" = "Add New Task";
+"Change Task" = "Change Task";
 "Save" = "Save";
 "Cancel" = "Cancel";
 "Marked as Completed" = "Marked as Completed";
@@ -22,7 +23,7 @@
 "No tasks" = "No tasks";
 "Today" = "Today";
 "Повтор" = "Repeat";
-"Никогда" = "Never";
+"Никогда" = "One time";
 "Ежедневно" = "Everyday";
 "По будням" = "By workdays";
 "По выходным" = "By weekends";

@@ -20,7 +20,14 @@ struct NewTask: View {
         case description
     }
     
+    enum StateOfScreen {
+        case read
+        case write
+    }
+    
     @Environment(\.dismiss) var dismiss
+    
+    @State var state: StateOfScreen = .write
     
     @State var taskTitle: String = ""
     @State var taskDescription: String = ""
@@ -41,44 +48,51 @@ struct NewTask: View {
     
     var body: some View {
         NavigationView {
-            List {
-                Title
-                
-                Description
-                
-                Priority
-                
-//                NotificationView
-                
-                if !isEditing {
-                    Section {
-                        RepeatMain
-                        if TaskRepeatDay(rawValue: taskRepeatDay) != .never {
-                            RepeatView
+            ScrollView {
+                LazyVStack {
+                    Title
+                    
+                    Description
+                    
+                    Priority
+                    
+//                    NotificationView
+                    
+                    if state == .write {
+                        Section {
+                            RepeatMain
+                            if TaskRepeatDay(rawValue: taskRepeatDay) != .never {
+                                RepeatView
+                            }
+                            
                         }
                         
+                        DateView
+                    }
+                }
+                .listStyle(.insetGrouped)
+                
+                .navigationTitle(isEditing ? "Change Task".localizationString : "Add New Task".localizationString)
+                .navigationBarTitleDisplayMode(.inline)
+                .interactiveDismissDisabled()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(state == .write ? "Save".localizationString : "Edit".localizationString) {
+                            if state == .write {
+                                saveAction()
+                            } else {
+                                state = .write
+                            }
+                        }
+                        .disabled(taskTitle.isEmpty)
                     }
                     
-                    DateView
-                }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel".localizationString) {
+                            dismiss()
+                        }
+                    }
             }
-            .listStyle(.insetGrouped)
-            .navigationTitle("Add New Task".localizationString)
-            .navigationBarTitleDisplayMode(.inline)
-            .interactiveDismissDisabled()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save".localizationString) {
-                        saveAction()
-                    }
-                    .disabled(taskTitle.isEmpty)
-                }
-                
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel".localizationString) {
-                        dismiss()
-                    }
-                }
             }
             
         }
@@ -96,6 +110,8 @@ struct Previews_NewTask_Previews: PreviewProvider {
     static var previews: some View {
         NewTask()
         NewTask()
+            .colorScheme(.dark)
+        NewTask(taskTitle: "task", taskDescription: "", taskPriority: 2)
             .colorScheme(.dark)
     }
 }

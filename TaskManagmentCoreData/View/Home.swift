@@ -13,7 +13,6 @@ struct Home: View {
     @Namespace var animation
     
     @Environment(\.managedObjectContext) var context
-    @Environment(\.editMode) var editButtonContext
     
     @State var isShow: Bool = true
     
@@ -26,8 +25,6 @@ struct Home: View {
                     
                     TasksView()
                         .animation(.easeInOut(duration: 0.5))
-                    
-                    
                 } header: {
                     HeaderView()
                 }
@@ -67,128 +64,183 @@ struct Home: View {
     func TasksView()->some View {
         LazyVStack(spacing: 25) {
             DynamicFilteredView(dateToFilter: taskModel.currentDay) { (object: Task) in
-                TaskCardView(task: object)
+                TaskCardView(task: object) {
+                    try? context.save()
+                } onDeleteAction: {
+                    context.delete(object)
+                    
+                    try? context.save()
+                }
+                .onTapGesture {
+                    taskModel.editTask = object
+                    taskModel.addNewTask.toggle()
+                }
+                    .padding(.bottom, taskModel.isCurrentHour(date: object.taskDate ?? Date()) ? 0 : 10)
+                    .hLeading()
             }
         }
-        .padding()
+        .padding(.leading)
         .padding(.top)
+        .padding(.top)
+        .padding(.bottom)
     }
     
-    func TaskCardView(task: Task)->some View {
-        HStack(alignment: editButtonContext?.wrappedValue == .active ? .center : .top, spacing: 30) {
-            
-            
-            if editButtonContext?.wrappedValue == .active {
-                VStack(spacing: 10) {
-                    
-                    if task.taskDate?.compare(Date()) == .orderedAscending || Calendar.current.isDateInToday(task.taskDate ?? Date()) {
-                        Button {
-                            taskModel.editTask = task
-                            taskModel.addNewTask.toggle()
-                        } label: {
-                            Image(systemName: "pencil.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                            
-                        }
+    struct TaskCardView: View {
+        @State var task: Task
+        
+        @State var action: () -> Void
+        
+        @State public var onDeleteState: Bool = false
+        
+        public var onDeleteAction: (() -> Void)?
+        
+        @State public var offset = CGSize.zero
+        
+        var DeleteButtonContent: some View {
+            ZStack {
+                Rectangle()
+                    .fill(Color.red)
+                HStack {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        Spacer()
+                        Image(systemName: "trash")
+                            .resizable()
+                            .frame(width: 21, height: 22, alignment: .center)
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                        Spacer()
                     }
-                    
-                    Button {
-                        context.delete(task)
-                        
-                        try? context.save()
-                    } label: {
-                        Image(systemName: "minus.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.red)
-                        
-                    }
-                }
-            } else {
-                VStack(spacing: 10) {
-                    Circle()
-                        .fill(task.isCompleted ? .green : Color(uiColor: .systemBackground))
-                        .frame(width: 15, height: 15)
-                        .background(
-                            Circle()
-                                .stroke(Color(uiColor: .label), lineWidth:  1)
-                                .padding(-3)
-                        )
-                        .scaleEffect(!taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0.8 : 1)
-                        .onTapGesture {
-                            task.isCompleted = false
-                            
-                            try? context.save()
-                        }
-                    switch task.priority {
-                    case 1:
-                        Rectangle()
-                            .fill(Color(uiColor: .orange))
-                            .frame(width: 4)
-                            .cornerRadius(2)
-                    case 2:
-                        Rectangle()
-                            .fill(Color(uiColor: .red))
-                            .frame(width: 4)
-                            .cornerRadius(2)
-                    default:
-                        Rectangle()
-                            .fill(Color(uiColor: .label))
-                            .frame(width: 4)
-                            .cornerRadius(2)
-                    }
+                    Spacer()
+                        .frame(width: 15)
                 }
             }
-            
-            VStack {
-                HStack(alignment: .top, spacing: 10) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(task.taskTitle ?? "")
-                            .font(.title2.bold())
-                        
-                        Text(task.taskDescription ?? "")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                    }
-                    .hLeading()
-                    
-                    Text(task.taskDate?.formatted(date: .omitted, time: .shortened) ?? "")
-                        .font(.callout)
-                }
-                .foregroundColor(Color(uiColor: .label))
-                
-                HStack(spacing: 12) {
-                    
-                    if !task.isCompleted {
-                        Button {
-                            task.isCompleted = true
-                            
-                            try? context.save()
-                        } label: {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(Color(uiColor: .systemBackground))
-                                .padding(10)
-                                .background(Color(uiColor: .label), in: RoundedRectangle(cornerRadius: 10))
-                        }
-                    }
-                    
-                    Text(task.isCompleted ? "Marked as Completed".localizationString : "Mark Task as Completed".localizationString)
-                        .font(.system(size: 16, weight: .light))
-                        .foregroundColor(!task.isCompleted ? Color(uiColor: .label) : .gray)
-                        .hLeading()
-                }
-            }
-            .foregroundColor(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? Color(uiColor: .label) : Color(uiColor: .systemBackground))
-            .padding(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 15 : 0)
-            .padding(.bottom, taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0 : 10)
-            .hLeading()
-            .background(
-                Color(uiColor: .systemBackground)
-                    .cornerRadius(25)
-                    .opacity(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 1 : 0)
-            )
         }
-        .hLeading()
+        
+        
+        var body: some View {
+            ZStack {
+                Button(action: {
+                    onDeleteAction!()
+                    offset = .zero
+                    onDeleteState = false
+                }) {
+                    DeleteButtonContent
+                }
+                HStack {
+                    VStack(spacing: 10) {
+                        Circle()
+                            .fill(task.isCompleted ? .green : Color(uiColor: .systemBackground))
+                            .frame(width: 15, height: 15)
+                            .background(
+                                Circle()
+                                    .stroke(Color(uiColor: .label), lineWidth:  1)
+                                    .padding(-3)
+                            )
+                            .onTapGesture {
+                                task.isCompleted = false
+                                
+    //                            try? context.save()
+                                action
+                            }
+                        switch task.priority {
+                        case 1:
+                            Rectangle()
+                                .fill(Color(uiColor: .orange))
+                                .frame(width: 4)
+                                .cornerRadius(2)
+                        case 2:
+                            Rectangle()
+                                .fill(Color(uiColor: .red))
+                                .frame(width: 4)
+                                .cornerRadius(2)
+                        default:
+                            Rectangle()
+                                .fill(Color(uiColor: .label))
+                                .frame(width: 4)
+                                .cornerRadius(2)
+                        }
+                    }
+                    
+                    Spacer()
+                        .frame(width: 30)
+                    
+                    VStack {
+                        HStack(alignment: .top, spacing: 10) {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text(task.taskTitle ?? "")
+                                    .font(.title2.bold())
+                                
+                                Text(task.taskDescription ?? "")
+                                    .font(.callout)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .hLeading()
+                            
+                            Text(task.taskDate?.formatted(date: .omitted, time: .shortened) ?? "")
+                                .font(.callout)
+                        }
+                        .foregroundColor(Color(uiColor: .label))
+                        
+                        HStack(spacing: 12) {
+                            
+                            if !task.isCompleted {
+                                Button {
+                                    task.isCompleted = true
+                                    
+                                    action
+                                } label: {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color(uiColor: .systemBackground))
+                                        .padding(10)
+                                        .background(Color(uiColor: .label), in: RoundedRectangle(cornerRadius: 10))
+                                }
+                            }
+                            
+                            Text(task.isCompleted ? "Marked as Completed".localizationString : "Mark Task as Completed".localizationString)
+                                .font(.system(size: 16, weight: .light))
+                                .foregroundColor(!task.isCompleted ? Color(uiColor: .label) : .gray)
+                                .hLeading()
+                        }
+                    }
+                    Spacer()
+                        .frame(width: 16)
+                }
+                .background {
+                    Rectangle()
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                }
+                .offset(self.offset)
+//                .animation(.spring())
+                .gesture(
+                    DragGesture(minimumDistance: 50, coordinateSpace: .named("Custom"))
+                        .onChanged { gesture in
+                            if gesture.translation.height > 0 || gesture.translation.height < 0 {
+                                self.offset.height = 0
+                            }
+                            self.offset.width = gesture.translation.width < -60 ? gesture.translation.width : 0
+                            if gesture.translation.width < 0 {
+                                onDeleteState = true
+                            }
+                            
+                        }
+                        .onEnded { _ in
+                            if self.offset.width < -130 {
+                                onDeleteAction!()
+                            }
+                            if self.offset.width < -50 {
+                                self.offset.width = -60
+                            } else {
+                                withAnimation {
+                                    self.offset = .zero
+                                    self.onDeleteState = false
+                                }
+                            }
+                            
+                        }
+            )
+            }
+        }
     }
     
     func HeaderView()->some View {
@@ -212,9 +264,6 @@ struct Home: View {
                     taskModel.currentDay = day
                 }
             }
-            
-            EditButton()
-                .foregroundColor(Color(uiColor: .label))
         }
         .padding(.top)
         .padding(.trailing)

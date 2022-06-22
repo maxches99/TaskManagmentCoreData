@@ -11,53 +11,94 @@ import SwiftUI
 extension NewTask {
     
     var Title: some View {
-        Section {
-            TextField("Go to work".localizationString, text: $taskTitle, onCommit: {
-                focusedField = .description
-            })
-            .focused($focusedField, equals: .title)
-            .submitLabel(.next)
-            .padding(.vertical)
-        } header: {
-            Text("Title".localizationString)
+        Group {
+            switch state {
+            case .read:
+                Text(taskTitle)
+                .matchedGeometryEffect(id: "Title", in: animation)
+            case .write:
+                TextField("Title of task".localizationString, text: $taskTitle, onCommit: {
+                    focusedField = .description
+                })
+                .font(.largeTitle)
+                .focused($focusedField, equals: .title)
+                .submitLabel(.next)
+                .padding(.vertical)
+                .matchedGeometryEffect(id: "Title", in: animation)
+            }
         }
+        .padding(.horizontal)
     }
     
     var Description: some View {
-        Section {
-            TextField("Nothing".localizationString, text: $taskDescription)
-                .focused($focusedField, equals: .description)
-                .submitLabel(.next)
-                .padding(.vertical)
-        } header: {
-            Text("Description".localizationString)
+        Group {
+            switch state {
+            case .read:
+                Text(taskDescription)
+                .matchedGeometryEffect(id: "Description", in: animation)
+            case .write:
+                TextField("Description of task".localizationString, text: $taskDescription)
+                    .focused($focusedField, equals: .description)
+                    .submitLabel(.next)
+                    .padding(.vertical)
+                .matchedGeometryEffect(id: "Description", in: animation)
+            }
         }
+        .padding(.horizontal)
     }
     
     var Priority: some View {
-        Section {
-            Picker(selection: $taskPriority, label: Text("Priority".localizationString)) {
-                Text("High".localizationString).tag(2)
-                Text("Medium".localizationString).tag(1)
-                Text("Down".localizationString).tag(0)
-                    .navigationTitle("Priority".localizationString)
+        Group {
+            switch state {
+            case .read:
+                EmptyView()
+            case .write:
+                HStack {
+                    Text("Priority".localizationString)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .opacity(0.7)
+                    Spacer()
+                        .frame(width: 16)
+                    Picker(selection: $taskPriority, label: Text("Priority".localizationString)) {
+                        Text("High".localizationString).tag(2)
+                        Text("Medium".localizationString).tag(1)
+                        Text("Down".localizationString).tag(0)
+                            .navigationTitle("Priority".localizationString)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.vertical)
+                .matchedGeometryEffect(id: "Priority", in: animation)
+                }
             }
-            .padding(.vertical)
         }
+        .padding(.horizontal)
     }
     
     var RepeatMain: some View {
         HStack {
-            Image(systemName: "repeat")
+            Text("Повтор".localizationString)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(Color.gray)
+                .multilineTextAlignment(.leading)
+                .opacity(0.7)
+            Spacer()
+//            Image(systemName: "repeat")
 
             Picker(selection: $taskRepeatDay, label: Text("Повтор".localizationString)) {
                 ForEach(0...10, id: \.self) { i in
-                    Text(TaskRepeatDay(rawValue: i)?.title ?? "").tag(i)
+                    Text(TaskRepeatDay(rawValue: i)?.title.localizationString ?? "")
+                        .tag(i)
                 }
-                
+
             }
+            .pickerStyle(.automatic)
         }
         .padding(.vertical)
+        .padding(.horizontal)
     }
     
     var RepeatView: some View {
@@ -117,6 +158,7 @@ extension NewTask {
                 }
             }
         }
+        .padding(.horizontal)
     }
     
     var NotificationView: some View {
@@ -186,6 +228,7 @@ extension NewTask {
                 .datePickerStyle(.graphical)
                 .labelsHidden()
         }
+        .padding(.horizontal)
     }
     
 }
