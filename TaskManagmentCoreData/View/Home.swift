@@ -22,7 +22,7 @@ struct Home: View {
                 Section {
                     
                     CalendarView()
-//                    Text("aa")
+                    //                    Text("aa")
                     TasksView()
                         .animation(.easeInOut(duration: 0.5))
                 } header: {
@@ -75,8 +75,8 @@ struct Home: View {
                     taskModel.editTask = object
                     taskModel.addNewTask.toggle()
                 }
-                    .padding(.bottom, taskModel.isCurrentHour(date: object.taskDate ?? Date()) ? 0 : 10)
-                    .hLeading()
+                .padding(.bottom, taskModel.isCurrentHour(date: object.taskDate ?? Date()) ? 0 : 10)
+                .hLeading()
             }
         }
         .padding(.leading)
@@ -120,12 +120,15 @@ struct Home: View {
         
         var body: some View {
             ZStack {
-                Button(action: {
-                    onDeleteAction!()
-                    offset = .zero
-                    onDeleteState = false
-                }) {
-                    DeleteButtonContent
+                if offset != .zero {
+                    Button(action: {
+                        onDeleteAction!()
+                        offset = .zero
+                        onDeleteState = false
+                    }) {
+                        DeleteButtonContent
+                    }
+                    .transition(.asymmetric(insertion: .identity, removal: .slide))
                 }
                 HStack {
                     VStack(spacing: 10) {
@@ -140,7 +143,7 @@ struct Home: View {
                             .onTapGesture {
                                 task.isCompleted = false
                                 
-    //                            try? context.save()
+                                //                            try? context.save()
                                 action
                             }
                         switch task.priority {
@@ -211,7 +214,7 @@ struct Home: View {
                         .foregroundColor(Color(uiColor: .systemBackground))
                 }
                 .offset(self.offset)
-//                .animation(.spring())
+                //                .animation(.spring())
                 .gesture(
                     DragGesture(minimumDistance: 50, coordinateSpace: .named("Custom"))
                         .onChanged { gesture in
@@ -238,7 +241,7 @@ struct Home: View {
                             }
                             
                         }
-            )
+                )
             }
         }
     }

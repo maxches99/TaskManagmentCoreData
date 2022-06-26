@@ -39,6 +39,8 @@ struct NewTask: View {
     @State var endOfRepeat: TypeEndOfRepeat = .endless
     @State var endOfRepeatData: Date = Date()
     
+    @State var isPressed = false
+    
     @Environment(\.managedObjectContext) var context
     
     @State var isEditing = false
@@ -62,6 +64,7 @@ struct NewTask: View {
                         Section {
                             RepeatMain
                             if TaskRepeatDay(rawValue: taskRepeatDay) != .never {
+                                
                                 RepeatView
                             }
                             

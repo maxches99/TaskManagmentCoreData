@@ -15,12 +15,12 @@ extension NewTask {
             switch state {
             case .read:
                 Text(taskTitle)
-                .matchedGeometryEffect(id: "Title", in: animation)
+                .matchedGeometryEffect(id: "Title".localizationString, in: animation)
             case .write:
-                TextField("Title of task".localizationString, text: $taskTitle, onCommit: {
+                TextField("Title".localizationString, text: $taskTitle, onCommit: {
                     focusedField = .description
                 })
-                .font(.largeTitle)
+                .font(.largeTitle.bold())
                 .focused($focusedField, equals: .title)
                 .submitLabel(.next)
                 .padding(.vertical)
@@ -35,9 +35,9 @@ extension NewTask {
             switch state {
             case .read:
                 Text(taskDescription)
-                .matchedGeometryEffect(id: "Description", in: animation)
+                .matchedGeometryEffect(id: "Description".localizationString, in: animation)
             case .write:
-                TextField("Description of task".localizationString, text: $taskDescription)
+                TextField("Description".localizationString, text: $taskDescription)
                     .focused($focusedField, equals: .description)
                     .submitLabel(.next)
                     .padding(.vertical)
@@ -145,14 +145,17 @@ extension NewTask {
             ) {
                 HStack {
                     Text("Конец повтора".localizationString)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .opacity(0.7)
                     Spacer()
                     switch endOfRepeat {
                     case .endless:
                         Text(endOfRepeat.title)
-                            .foregroundColor(.gray)
                     case .date:
                         Text("\(endOfRepeatData.formatted(date: .numeric, time: .omitted))")
-                            .foregroundColor(.gray)
                     }
                     
                 }
