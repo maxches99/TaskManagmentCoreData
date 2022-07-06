@@ -13,18 +13,26 @@ struct DynamicFilteredView<Content: View, T>: View where T: NSManagedObject {
     @FetchRequest var request: FetchedResults<T>
     let content: (T)->Content
     
-    init(dateToFilter: Date, @ViewBuilder content: @escaping (T)->Content) {
-        
-        let calendar = Calendar.current
-        
-        let today = calendar.startOfDay(for: dateToFilter)
-        let tommorow = calendar.date(byAdding: .day, value: 1, to: today)
+    init(dateToFilter: Date?, @ViewBuilder content: @escaping (T)->Content) {
         
         let filterKey = "taskDate"
         
-        let predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) =< %@", argumentArray: [today, tommorow])
+        if let dateToFilter = dateToFilter {
+            
+            let calendar = Calendar.current
+            
+            let today = calendar.startOfDay(for: dateToFilter)
+            let tommorow = calendar.date(byAdding: .day, value: 1, to: today)
+            
+            let predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) =< %@", argumentArray: [today, tommorow])
+            _request = FetchRequest(entity: T.entity(), sortDescriptors: [.init(keyPath: \Task.taskDate, ascending: false)], predicate: predicate)
+        } else {
+            let predicate = NSPredicate(format: "\(filterKey) == nil")
+            _request = FetchRequest(entity: T.entity(), sortDescriptors: [.init(keyPath: \Task.taskDate, ascending: false)], predicate: predicate)
+        }
         
-        _request = FetchRequest(entity: T.entity(), sortDescriptors: [.init(keyPath: \Task.taskDate, ascending: false)], predicate: predicate)
+        
+        
         self.content = content
     }
     

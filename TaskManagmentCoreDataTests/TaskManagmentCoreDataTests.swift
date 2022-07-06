@@ -31,6 +31,31 @@ class TaskManagmentCoreDataTests: XCTestCase {
 
         assertSnapshot(matching: view, as: .image, named: "NewTask\(UIDevice.modelName)\(Locale.current.languageCode)")
     }
+    
+    fileprivate lazy var restaurantsNetworkService = SearchGIFNetworkService()
+    
+    var script: String = ""
+    
+    func testloadRestaurantById() {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct
+        // results.
+        var restaurantMain: GIFResponse? = nil
+        let expectation = XCTestExpectation.init(description: "testloadRestaurantById")
+        let id = 688
+        restaurantsNetworkService.loadGIFs(by: "messi", completion: { restaurant, error in
+            if error != nil
+            {
+                XCTFail("\(error)")
+            }
+            restaurantMain = restaurant
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 30.0)
+        print("||", restaurantMain?.data.first?.images?.original.url)
+        print("||", SearchAPI.getGifsBy("messi").urlRequest.url)
+    }
 
 }
 

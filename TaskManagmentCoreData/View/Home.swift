@@ -6,15 +6,34 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Home: View {
+    
+    @StateObject var themesHelper: ThemesHelper = .shared
     
     @StateObject var taskModel: TaskViewModel = TaskViewModel()
     @Namespace var animation
     
     @Environment(\.managedObjectContext) var context
     
-    @State var isShow: Bool = true
+    @State var isShow: Bool = false
+    @State var isShowThemes: Bool = false
+    
+    var isEmptyTasksWithoutDate: Bool {
+        let predicate: NSPredicate
+        
+        let filterKey = "taskDate"
+        
+        predicate = NSPredicate(format: "\(filterKey) == nil", argumentArray: [])
+        
+        var fetchRequest = NSFetchRequest<Task>(entityName: "Task")
+        fetchRequest.predicate = predicate
+        
+        var fetched = try? context.fetch(fetchRequest)
+        
+        return fetched?.count ?? 0 == 0
+    }
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -22,7 +41,7 @@ struct Home: View {
                 Section {
                     
                     CalendarView()
-                    //                    Text("aa")
+                    
                     TasksView()
                         .animation(.easeInOut(duration: 0.5))
                 } header: {
@@ -36,10 +55,10 @@ struct Home: View {
                 taskModel.addNewTask.toggle()
             } label: {
                 Image(systemName: "plus")
-                    .foregroundColor(Color(uiColor: .systemBackground))
+                    .foregroundColor(themesHelper.current.backgroundColor)
                     .padding()
                     .background(
-                        Color(uiColor: .label), in: Circle()
+                        themesHelper.current.textColor, in: Circle()
                     )
             }
                 .padding()
@@ -55,16 +74,62 @@ struct Home: View {
                     .environmentObject(taskModel)
             }
         }
+        .fullScreenCover(isPresented: $isShowThemes) {
+            isShowThemes = false
+        } content: {
+            ThemesView()
+        }
         .fullScreenCover(isPresented: $taskModel.showingOnboarding, content: {
             UIOnboardingView()
                 .edgesIgnoringSafeArea(.all)
         })
+        .background(themesHelper.current.backgroundColor)
     }
     
     func TasksView()->some View {
         LazyVStack(spacing: 25) {
+
+//            if !isEmptyTasksWithoutDate {
+//                HStack {
+//                    Text("Без даты")
+//                        .foregroundColor(.primary)
+//                    Spacer()
+//                    Image(systemName: "arrow.down")
+//                        .foregroundColor(.primary)
+//                        .rotationEffect(isShow ? .degrees(180): .degrees(360))
+//                }
+//                .padding()
+//                .background(
+//                    RoundedRectangle(cornerRadius: 16)
+//                        .foregroundColor(Color(uiColor: .secondarySystemBackground))
+//                )
+//                .padding(.trailing)
+//                .onTapGesture {
+//                    isShow.toggle()
+//            }
+//            }
+//            if isShow {
+//                DynamicFilteredView(dateToFilter: nil) { (object: Task) in
+//                    TaskCardView(task: object) {
+//                        try? context.save()
+//                    } onDeleteAction: {
+//                        context.delete(object)
+//
+//                        try? context.save()
+//                    }
+//                    .onTapGesture {
+//                        taskModel.editTask = object
+//                        taskModel.addNewTask.toggle()
+//                    }
+//                    .padding(.bottom, taskModel.isCurrentHour(date: object.taskDate ?? Date()) ? 0 : 10)
+//                    .hLeading()
+//                }
+//                .transition(.opacity)
+//            }
+
+            
             DynamicFilteredView(dateToFilter: taskModel.currentDay) { (object: Task) in
-                TaskCardView(task: object) {
+                TaskCardView(task: object, theme: $themesHelper.current) {
                     try? context.save()
                 } onDeleteAction: {
                     context.delete(object)
@@ -85,172 +150,11 @@ struct Home: View {
         .padding(.bottom)
     }
     
-    struct TaskCardView: View {
-        @State var task: Task
-        
-        @State var action: () -> Void
-        
-        @State public var onDeleteState: Bool = false
-        
-        public var onDeleteAction: (() -> Void)?
-        
-        @State public var offset = CGSize.zero
-        
-        var DeleteButtonContent: some View {
-            ZStack {
-                Rectangle()
-                    .fill(Color.red)
-                HStack {
-                    Spacer()
-                    VStack(spacing: 0) {
-                        Spacer()
-                        Image(systemName: "trash")
-                            .resizable()
-                            .frame(width: 21, height: 22, alignment: .center)
-                            .foregroundColor(.white)
-                            .accentColor(.white)
-                        Spacer()
-                    }
-                    Spacer()
-                        .frame(width: 15)
-                }
-            }
-        }
-        
-        
-        var body: some View {
-            ZStack {
-                if offset != .zero {
-                    Button(action: {
-                        onDeleteAction!()
-                        offset = .zero
-                        onDeleteState = false
-                    }) {
-                        DeleteButtonContent
-                    }
-                    .transition(.asymmetric(insertion: .identity, removal: .slide))
-                }
-                HStack {
-                    VStack(spacing: 10) {
-                        Circle()
-                            .fill(task.isCompleted ? .green : Color(uiColor: .systemBackground))
-                            .frame(width: 15, height: 15)
-                            .background(
-                                Circle()
-                                    .stroke(Color(uiColor: .label), lineWidth:  1)
-                                    .padding(-3)
-                            )
-                            .onTapGesture {
-                                task.isCompleted = false
-                                
-                                //                            try? context.save()
-                                action
-                            }
-                        switch task.priority {
-                        case 1:
-                            Rectangle()
-                                .fill(Color(uiColor: .orange))
-                                .frame(width: 4)
-                                .cornerRadius(2)
-                        case 2:
-                            Rectangle()
-                                .fill(Color(uiColor: .red))
-                                .frame(width: 4)
-                                .cornerRadius(2)
-                        default:
-                            Rectangle()
-                                .fill(Color(uiColor: .label))
-                                .frame(width: 4)
-                                .cornerRadius(2)
-                        }
-                    }
-                    
-                    Spacer()
-                        .frame(width: 30)
-                    
-                    VStack {
-                        HStack(alignment: .top, spacing: 10) {
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text(task.taskTitle ?? "")
-                                    .font(.title2.bold())
-                                
-                                Text(task.taskDescription ?? "")
-                                    .font(.callout)
-                                    .foregroundStyle(.secondary)
-                            }
-                            .hLeading()
-                            
-                            Text(task.taskDate?.formatted(date: .omitted, time: .shortened) ?? "")
-                                .font(.callout)
-                        }
-                        .foregroundColor(Color(uiColor: .label))
-                        
-                        HStack(spacing: 12) {
-                            
-                            if !task.isCompleted {
-                                Button {
-                                    task.isCompleted = true
-                                    
-                                    action
-                                } label: {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(Color(uiColor: .systemBackground))
-                                        .padding(10)
-                                        .background(Color(uiColor: .label), in: RoundedRectangle(cornerRadius: 10))
-                                }
-                            }
-                            
-                            Text(task.isCompleted ? "Marked as Completed".localizationString : "Mark Task as Completed".localizationString)
-                                .font(.system(size: 16, weight: .light))
-                                .foregroundColor(!task.isCompleted ? Color(uiColor: .label) : .gray)
-                                .hLeading()
-                        }
-                    }
-                    Spacer()
-                        .frame(width: 16)
-                }
-                .background {
-                    Rectangle()
-                        .foregroundColor(Color(uiColor: .systemBackground))
-                }
-                .offset(self.offset)
-                //                .animation(.spring())
-                .gesture(
-                    DragGesture(minimumDistance: 50, coordinateSpace: .named("Custom"))
-                        .onChanged { gesture in
-                            if gesture.translation.height > 0 || gesture.translation.height < 0 {
-                                self.offset.height = 0
-                            }
-                            self.offset.width = gesture.translation.width < -60 ? gesture.translation.width : 0
-                            if gesture.translation.width < 0 {
-                                onDeleteState = true
-                            }
-                            
-                        }
-                        .onEnded { _ in
-                            if self.offset.width < -130 {
-                                onDeleteAction!()
-                            }
-                            if self.offset.width < -50 {
-                                self.offset.width = -60
-                            } else {
-                                withAnimation {
-                                    self.offset = .zero
-                                    self.onDeleteState = false
-                                }
-                            }
-                            
-                        }
-                )
-            }
-        }
-    }
-    
     func HeaderView()->some View {
         HStack(alignment: .top, spacing: 0) {
             VStack(alignment: .center, spacing: 10) {
                 Text(Date().formatted(date: .abbreviated, time: .omitted))
-                    .foregroundColor(.gray)
+                    .foregroundColor(themesHelper.current.textColor)
                     .animation(.easeInOut, value: 2.4)
                 Text("Today".localizationString)
                     .font(.largeTitle.bold())
@@ -259,6 +163,7 @@ struct Home: View {
                         taskModel.currentDay = Date()
                     }
                     .padding(.leading)
+                    .foregroundColor(themesHelper.current.textColor)
                 
             }
             .hLeading()
@@ -267,50 +172,72 @@ struct Home: View {
                     taskModel.currentDay = day
                 }
             }
+            Spacer()
+            Button {
+                isShowThemes.toggle()
+            } label: {
+                Image(systemName: "paintpalette")
+                    .foregroundColor(themesHelper.current.textColor)
+            }
         }
         .padding(.top)
         .padding(.trailing)
         .padding(.top, getSafeArea().top)
-        .background(Color(uiColor: .systemBackground))
+        .background(themesHelper.current.backgroundColor)
     }
     
     func CalendarView() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 10) {
-                ForEach(taskModel.currentWeek, id: \.self) { day in
-                    VStack(spacing: 10) {
-                        Text(taskModel.extractDate(date: day, format: "dd"))
-                            .font(.system(size: 15))
-                            .fontWeight(.semibold)
-                        
-                        Text(taskModel.extractDate(date: day, format: "EEE"))
-                            .font(.system(size: 14))
-                        
-                        Circle()
-                            .fill(Color(uiColor: .systemBackground))
-                            .frame(width: 8, height: 8)
-                            .opacity(taskModel.isToday(date: day) ? 1 : 0)
-                    }
-                    .foregroundColor(taskModel.isToday(date: day) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
-                    .frame(width: 45, height: 90)
-                    .background(
-                        ZStack {
-                            if taskModel.isToday(date: day) {
-                                Capsule()
-                                    .fill(Color(uiColor: .label))
-                                    .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
-                            }
-                        }
-                    )
-                    .contentShape(Capsule())
-                    .onTapGesture {
-                        withAnimation {
-                            taskModel.currentDay = day
-                        }
+            ScrollViewReader { value in
+                HStack(spacing: 10) {
+                    ForEach(taskModel.currentWeek, id: \.self) { day in
+                        getDayView(day: day)
+                        .id(day)
                     }
                 }
+                .padding(.horizontal)
+                .onAppear {
+                    withAnimation {
+                        value.scrollTo(taskModel.currentDay, anchor: .leading)
+                    }
+                    
+                }
             }
-            .padding(.horizontal)
+        }
+    }
+    
+    func getDayView(day: Date) -> some View {
+        VStack(spacing: 10) {
+            Text(taskModel.extractDate(date: day, format: "dd"))
+                .font(.system(size: 15))
+                .fontWeight(.semibold)
+                .foregroundColor(taskModel.isToday(date: day) ? themesHelper.current.backgroundColor : themesHelper.current.textColor)
+            
+            Text(taskModel.extractDate(date: day, format: "EEE"))
+                .font(.system(size: 14))
+                .foregroundColor(taskModel.isToday(date: day) ? themesHelper.current.backgroundColor : themesHelper.current.textColor)
+            
+            Circle()
+                .fill(themesHelper.current.backgroundColor)
+                .frame(width: 8, height: 8)
+                .opacity(taskModel.isToday(date: day) ? 1 : 0)
+        }
+        .foregroundColor(taskModel.isToday(date: day) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
+        .frame(width: 45, height: 90)
+        .background(
+            ZStack {
+                if taskModel.isToday(date: day) {
+                    Capsule()
+                        .fill(themesHelper.current.textColor)
+                        .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
+                }
+            }
+        )
+        .contentShape(Capsule())
+        .onTapGesture {
+            withAnimation {
+                taskModel.currentDay = day
+            }
         }
     }
     

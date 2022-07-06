@@ -20,8 +20,10 @@ public class AnalyticsHelper {
     var utmParams: [String: String] = [:]
     
     public func log(_ type: AnalyticsType) {
+        #if RELEASE
         let analyticParameters = getParameters(type)
         Analytics.logEvent(type.eventName, parameters: analyticParameters)
+        #endif
     }
     
     func getParameters(_ type: AnalyticsType) -> [String: Any] {

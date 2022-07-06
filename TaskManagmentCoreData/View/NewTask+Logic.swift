@@ -108,7 +108,7 @@ extension NewTask {
     
     func scheduleNotification(_ date: Date) {
         
-        let content = UNMutableNotificationContent() // Содержимое уведомления
+        let content = UNMutableNotificationContent()
         
         content.title = taskTitle
         content.body = taskDescription

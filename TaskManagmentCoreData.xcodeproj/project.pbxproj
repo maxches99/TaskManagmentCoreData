@@ -17,6 +17,15 @@
 		4908C9A328060C79008BAE55 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 4908C9A228060C79008BAE55 /* UIOnboarding */; };
 		4908C9A52807607A008BAE55 /* TypeOfNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908C9A42807607A008BAE55 /* TypeOfNotification.swift */; };
 		490D95282867CD4C0056FE99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82BD640327931AD300121036 /* Assets.xcassets */; };
+		495425F22867E9A00052E5D2 /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495425F12867E9A00052E5D2 /* TaskCardView.swift */; };
+		495425F6286891340052E5D2 /* ConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495425F5286891340052E5D2 /* ConditionView.swift */; };
+		495425F9286898270052E5D2 /* GIFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495425F8286898270052E5D2 /* GIFHelper.swift */; };
+		495425FB286899F70052E5D2 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 495425FA286899F70052E5D2 /* 1.gif */; };
+		495426062868B05F0052E5D2 /* GIFResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495426052868B05F0052E5D2 /* GIFResponse.swift */; };
+		495426092868B0F00052E5D2 /* APIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495426082868B0F00052E5D2 /* APIBuilder.swift */; };
+		4954260C286903A20052E5D2 /* GIFCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4954260B286903A20052E5D2 /* GIFCollectionView.swift */; };
+		49542613287389A70052E5D2 /* ThemesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49542612287389A70052E5D2 /* ThemesView.swift */; };
+		495426152873D0B20052E5D2 /* ThemesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495426142873D0B20052E5D2 /* ThemesHelper.swift */; };
 		499E55FF2803781700593E23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 499E56012803781700593E23 /* Localizable.strings */; };
 		499E56072803785A00593E23 /* String+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E56062803785A00593E23 /* String+Localize.swift */; };
 		49BE83422862686B00AD21C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49BE83412862686B00AD21C6 /* GoogleService-Info.plist */; };
@@ -69,6 +78,15 @@
 		4908C99D28060616008BAE55 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		4908C99F28060AAA008BAE55 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		4908C9A42807607A008BAE55 /* TypeOfNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfNotification.swift; sourceTree = "<group>"; };
+		495425F12867E9A00052E5D2 /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
+		495425F5286891340052E5D2 /* ConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionView.swift; sourceTree = "<group>"; };
+		495425F8286898270052E5D2 /* GIFHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFHelper.swift; sourceTree = "<group>"; };
+		495425FA286899F70052E5D2 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
+		495426052868B05F0052E5D2 /* GIFResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFResponse.swift; sourceTree = "<group>"; };
+		495426082868B0F00052E5D2 /* APIBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIBuilder.swift; sourceTree = "<group>"; };
+		4954260B286903A20052E5D2 /* GIFCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFCollectionView.swift; sourceTree = "<group>"; };
+		49542612287389A70052E5D2 /* ThemesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesView.swift; sourceTree = "<group>"; };
+		495426142873D0B20052E5D2 /* ThemesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesHelper.swift; sourceTree = "<group>"; };
 		499E56002803781700593E23 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		499E56022803781900593E23 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		499E56062803785A00593E23 /* String+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localize.swift"; sourceTree = "<group>"; };
@@ -124,6 +142,65 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		495425F72868980D0052E5D2 /* GIF */ = {
+			isa = PBXGroup;
+			children = (
+				495425FE28689DDF0052E5D2 /* GIFImages */,
+				495425F8286898270052E5D2 /* GIFHelper.swift */,
+			);
+			path = GIF;
+			sourceTree = "<group>";
+		};
+		495425FE28689DDF0052E5D2 /* GIFImages */ = {
+			isa = PBXGroup;
+			children = (
+				495425FA286899F70052E5D2 /* 1.gif */,
+			);
+			path = GIFImages;
+			sourceTree = "<group>";
+		};
+		495426032868B03A0052E5D2 /* GIFCollectionModule */ = {
+			isa = PBXGroup;
+			children = (
+				4954260A286903930052E5D2 /* View */,
+				495426042868B0550052E5D2 /* Models */,
+			);
+			path = GIFCollectionModule;
+			sourceTree = "<group>";
+		};
+		495426042868B0550052E5D2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				495426052868B05F0052E5D2 /* GIFResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		495426072868B0DD0052E5D2 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				495426082868B0F00052E5D2 /* APIBuilder.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		4954260A286903930052E5D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4954260B286903A20052E5D2 /* GIFCollectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		49542610287388110052E5D2 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				49542612287389A70052E5D2 /* ThemesView.swift */,
+				495426142873D0B20052E5D2 /* ThemesHelper.swift */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
 		499E56032803782F00593E23 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +229,7 @@
 		49BE834A28626A0200AD21C6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				495426032868B03A0052E5D2 /* GIFCollectionModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -195,6 +273,7 @@
 		82BD63FE27931AD200121036 /* TaskManagmentCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				495426072868B0DD0052E5D2 /* NetworkLayer */,
 				49BE8355286290AB00AD21C6 /* Helpers */,
 				4908C9942805CE40008BAE55 /* Extensions */,
 				499E56032803782F00593E23 /* App */,
@@ -243,9 +322,13 @@
 		82BD6418279327A800121036 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49542610287388110052E5D2 /* Themes */,
+				495425F72868980D0052E5D2 /* GIF */,
 				82BD6419279327B000121036 /* Home.swift */,
+				495425F12867E9A00052E5D2 /* TaskCardView.swift */,
 				82BD641D2794F76B00121036 /* NewTask.swift */,
 				4908C9992805CEE3008BAE55 /* NewTask+UI.swift */,
+				495425F5286891340052E5D2 /* ConditionView.swift */,
 				4908C9972805CEA7008BAE55 /* NewTask+Logic.swift */,
 				82BD641B2794EB0E00121036 /* DynamicFilteredView.swift */,
 				4908C99F28060AAA008BAE55 /* TutorialView.swift */,
@@ -359,6 +442,7 @@
 				82BD640727931AD300121036 /* Preview Assets.xcassets in Resources */,
 				49BE83422862686B00AD21C6 /* GoogleService-Info.plist in Resources */,
 				490D95282867CD4C0056FE99 /* Assets.xcassets in Resources */,
+				495425FB286899F70052E5D2 /* 1.gif in Resources */,
 				499E55FF2803781700593E23 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,12 +467,20 @@
 				49BE8357286290D400AD21C6 /* AnalyticsHelper.swift in Sources */,
 				82BD640927931AD300121036 /* Persistence.swift in Sources */,
 				4908C99E28060616008BAE55 /* View.swift in Sources */,
+				49542613287389A70052E5D2 /* ThemesView.swift in Sources */,
 				4908C9912805CDBE008BAE55 /* TaskRepeatDay.swift in Sources */,
 				82BD641E2794F76B00121036 /* NewTask.swift in Sources */,
+				4954260C286903A20052E5D2 /* GIFCollectionView.swift in Sources */,
 				82BD641C2794EB0E00121036 /* DynamicFilteredView.swift in Sources */,
 				82BD641427931C2700121036 /* TaskViewModel.swift in Sources */,
+				495426092868B0F00052E5D2 /* APIBuilder.swift in Sources */,
 				4908C9A028060AAA008BAE55 /* TutorialView.swift in Sources */,
+				495426152873D0B20052E5D2 /* ThemesHelper.swift in Sources */,
+				495425F22867E9A00052E5D2 /* TaskCardView.swift in Sources */,
+				495426062868B05F0052E5D2 /* GIFResponse.swift in Sources */,
 				4908C99A2805CEE3008BAE55 /* NewTask+UI.swift in Sources */,
+				495425F6286891340052E5D2 /* ConditionView.swift in Sources */,
+				495425F9286898270052E5D2 /* GIFHelper.swift in Sources */,
 				4908C9A52807607A008BAE55 /* TypeOfNotification.swift in Sources */,
 				4908C9982805CEA7008BAE55 /* NewTask+Logic.swift in Sources */,
 				82BD6417279322B000121036 /* Task.swift in Sources */,
